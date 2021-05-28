@@ -37,7 +37,7 @@ func (b *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	auth := r.Header.Get("Authorization")
-	if strings.ToLower(auth[0:6]) != "bearer" {
+	if len(auth) <= 6 || strings.ToLower(auth[:6]) != "bearer" {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 	}
 	session, err := getSession(auth[7:], b.secret)
