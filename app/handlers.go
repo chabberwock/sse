@@ -39,10 +39,12 @@ func (b *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	auth := r.Header.Get("Authorization")
 	if len(auth) <= 6 || strings.ToLower(auth[:6]) != "bearer" {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
 	}
 	session, err := getSession(auth[7:], b.secret)
 	if err != nil {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
 	}
 
 	dataChan := make(chan string)
