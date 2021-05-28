@@ -60,7 +60,7 @@ func (b *Server) Start() {
 
 			case msg := <-b.messages:
 				for s, c := range b.clients {
-					if s.UserId == msg.UserId || msg.UserId == "*" {
+					if s.Channel == msg.Channel && (s.UserId == msg.UserId || msg.UserId == "*") {
 						c <- msg.Payload
 					}
 				}
