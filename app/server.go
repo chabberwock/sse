@@ -62,9 +62,10 @@ func (b *Server) Start() {
 				for s, c := range b.clients {
 					if s.Channel == msg.Channel && (s.UserId == msg.UserId || msg.UserId == "*") {
 						c <- msg.Payload
+						log.Printf("Sent message to %s", s.UserId)
 					}
 				}
-				log.Printf("Sent message to %s", msg.UserId)
+
 			}
 		}
 	}()

@@ -11,16 +11,11 @@ import (
 )
 
 func (b *Server) emitHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/emit/" {
-		w.WriteHeader(http.StatusNotFound)
-		return
-	}
 	b.messages <- &message{
 		r.FormValue("userId"),
 		r.FormValue("channel"),
 		r.FormValue("payload"),
 	}
-
 	w.Write([]byte("OK"))
 }
 
