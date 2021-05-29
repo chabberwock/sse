@@ -67,6 +67,7 @@ func (b *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if !open {
 			break
 		}
+		log.Println(msg)
 		fmt.Fprintln(w, msg)
 		f.Flush()
 	}
